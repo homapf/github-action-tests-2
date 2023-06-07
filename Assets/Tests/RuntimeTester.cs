@@ -16,7 +16,7 @@ public class RuntimeTester : ICallbacks
             testMode = TestMode.PlayMode,
             targetPlatform = BuildTarget.StandaloneOSX
         };
-        testRunnerApi.Execute(new ExecutionSettings(filter));
+        Debug.Log(testRunnerApi.Execute(new ExecutionSettings(filter)));
         var tester = new RuntimeTester();
         testRunnerApi.RegisterCallbacks(tester);
     }
