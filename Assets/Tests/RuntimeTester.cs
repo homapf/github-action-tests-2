@@ -1,10 +1,13 @@
 #if UNITY_EDITOR
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.TestTools.TestRunner.Api;
 using UnityEngine;
 
 public class RuntimeTester : ICallbacks
 {
+    private bool results = false;
+    
     [MenuItem("Homa/test")]
     public static void Test()
     {
@@ -16,7 +19,12 @@ public class RuntimeTester : ICallbacks
             targetPlatform = BuildTarget.Android
         };
         testRunnerApi.Execute(new ExecutionSettings(filter));
-        testRunnerApi.RegisterCallbacks(new RuntimeTester());
+        var tester = new RuntimeTester();
+        testRunnerApi.RegisterCallbacks(tester);
+        while (!tester.results)
+        {
+            Task.Delay(25);
+        }
     }
 
     public void RunStarted(ITestAdaptor testsToRun)
@@ -26,6 +34,7 @@ public class RuntimeTester : ICallbacks
     public void RunFinished(ITestResultAdaptor result)
     {
         Debug.Log($"Results : {result.ToXml().OuterXml}");
+        results = true;
     }
 
     public void TestStarted(ITestAdaptor test)
