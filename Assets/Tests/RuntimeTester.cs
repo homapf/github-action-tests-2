@@ -8,6 +8,7 @@ public class RuntimeTester : ICallbacks
     [MenuItem("Homa/test")]
     public static void Test()
     {
+        Debug.Log("Launching Tests");
         var testRunnerApi = ScriptableObject.CreateInstance<TestRunnerApi>();
         var filter = new Filter()
         {
