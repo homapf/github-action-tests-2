@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class RuntimeTester : ICallbacks
 {
-    private bool results = false;
-    
     [MenuItem("Homa/test")]
     public static void Test()
     {
@@ -16,15 +14,11 @@ public class RuntimeTester : ICallbacks
         var filter = new Filter()
         {
             testMode = TestMode.PlayMode,
-            targetPlatform = BuildTarget.Android
+            targetPlatform = BuildTarget.StandaloneOSX
         };
         testRunnerApi.Execute(new ExecutionSettings(filter));
         var tester = new RuntimeTester();
         testRunnerApi.RegisterCallbacks(tester);
-        while (!tester.results)
-        {
-            Task.Delay(25);
-        }
     }
 
     public void RunStarted(ITestAdaptor testsToRun)
@@ -34,7 +28,6 @@ public class RuntimeTester : ICallbacks
     public void RunFinished(ITestResultAdaptor result)
     {
         Debug.Log($"Results : {result.ToXml().OuterXml}");
-        results = true;
     }
 
     public void TestStarted(ITestAdaptor test)
