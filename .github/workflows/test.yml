@@ -1,0 +1,10 @@
+name: Test
+
+on: [pull_request]
+
+jobs:
+  tests:
+    uses: homagames/unity-ci-environment/.github/workflows/build-package.yml@master
+    with:
+      build-method: "RuntimeTester.Test"
+    secrets: inherit
