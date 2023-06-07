@@ -3,9 +3,30 @@ name: Test
 on: [pull_request]
 
 jobs:
-  tests:
-    uses: homagames/unity-ci-environment/.github/workflows/build-package.yml@master
-    with:
-      build-method: "RuntimeTester.Test"
-      bare-repository: false
-    secrets: inherit
+  build-package:
+    name: Test
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repo package
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library
+
+      - name: Build .unitypackage for package
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          buildMethod: "RuntimeTester.Test"
+          allowDirtyBuild: true
+          versioning: None
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Package
+          path: Build/
