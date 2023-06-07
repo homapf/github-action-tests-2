@@ -7,4 +7,5 @@ jobs:
     uses: homagames/unity-ci-environment/.github/workflows/build-package.yml@master
     with:
       build-method: "RuntimeTester.Test"
+      bare-repository: false
     secrets: inherit
