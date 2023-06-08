@@ -23,6 +23,7 @@ jobs:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
           buildMethod: "RuntimeTester.Test"
+          buildTarget: Android
           allowDirtyBuild: true
           versioning: None
 
