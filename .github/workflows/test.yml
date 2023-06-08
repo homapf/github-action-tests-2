@@ -16,7 +16,7 @@ jobs:
           key: Library
 
       - name: Build .unitypackage for package
-        uses: game-ci/unity-builder@v2
+        uses: homapf/unity-builder@master
         env:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
