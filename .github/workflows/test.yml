@@ -17,4 +17,4 @@ jobs:
       
       - name: Running tests
         run: |
-          echo ${{ env.FINAL_TEST }}"
+          echo ${{ env.FINAL_TEST }}
