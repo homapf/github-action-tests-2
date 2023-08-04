@@ -5,29 +5,16 @@ on: [pull_request]
 jobs:
   build-package:
     name: Test
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo package
-        uses: actions/checkout@v3
-
-      - uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library
-
-      - name: Build .unitypackage for package
-        uses: homapf/unity-builder@main
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-        with:
-          buildMethod: "RuntimeTester.Test"
-          targetPlatform: Android
-          allowDirtyBuild: true
-          versioning: None
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Package
-          path: Build/
+      - name: Set Environment Variable
+        run: |
+            if [[ true == "true" ]]; then
+              echo "FINAL_TEST=something" >> $GITHUB_ENV
+            else
+              echo "FINAL_TEST=\"\"" >> $GITHUB_ENV
+            fi
+      
+      - name: Running tests
+        run: |
+          echo ${{ env.FINAL_TEST }}"
