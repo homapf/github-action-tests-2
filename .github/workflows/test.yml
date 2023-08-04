@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Set Environment Variable
         run: |
-            if [[ true == "true" ]]; then
+            if [[ false == "true" ]]; then
               echo "FINAL_TEST=something" >> $GITHUB_ENV
             else
               echo "FINAL_TEST=\"\"" >> $GITHUB_ENV
